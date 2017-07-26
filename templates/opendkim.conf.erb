@@ -1,0 +1,13 @@
+AutoRestart Yes
+AutoRestartRate 10/1h
+Canonicalization relaxed/simple
+ExternalIgnoreList refile:/etc/opendkim/TrustedHosts
+InternalHosts refile:/etc/opendkim/TrustedHosts
+KeyTable refile:/etc/opendkim/KeyTable
+LogWhy Yes
+Mode s
+OversignHeaders From
+SignatureAlgorithm rsa-sha256
+SigningTable refile:/etc/opendkim/SigningTable
+Syslog Yes
+SyslogSuccess Yes
