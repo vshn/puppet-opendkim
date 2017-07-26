@@ -26,7 +26,7 @@
 # Default: default
 #
 define opendkim::wildcard_key (
-  $bits = 2048,
+  $bits = '2048',
   $selector = 'default',
 ){
 
