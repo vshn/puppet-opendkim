@@ -1,4 +1,4 @@
-# = Class: opendkim::wildcard_key
+# = Class: opendkim::key
 #
 # This types will generate a dkim key and create the necessary
 # KeyTable and SigningTable entries
@@ -19,19 +19,31 @@
 # This module limits the choice to 1024/2048.
 # Default: 2048
 #
+# [*domains*]
+# Array. List of sender domains that will be signed using this key. If the array
+# is empty or not specified, the key will be used to sign all domains (*).
+# Default: Empty
+#
+# [*priority*]
+# Integer. Priority of key in Signing / Key tables. Smallest priority wins.
+# Default: 50
+#
 # [*selector*]
 # String. Every domain can be signed by multiple keys. In that keys each key
 # needs a dedicated selector. (i.e. If you send mails with multiple providers,
 # you should chose a selector for each provider)
 # Default: default
 #
-define opendkim::wildcard_key (
+define opendkim::key (
   $bits = '2048',
+  $domains = [],
+  $priority = 50,
   $selector = 'default',
 ){
 
   validate_integer($bits)
   validate_re($bits, '^(1024|2048)$')
+  validate_array($domains)
   validate_string($selector)
   $key_path = "${opendkim::config_dir}/keys/${title}"
   validate_absolute_path($key_path)
@@ -44,7 +56,7 @@ define opendkim::wildcard_key (
     mode   => '0750',
   }
 
-  exec {"opendkim-genkey-${title}-wildcard":
+  exec {"opendkim-genkey-${title}":
     command => shell_join([
       '/usr/bin/opendkim-genkey',
       '-D', "${key_path}/",
@@ -60,15 +72,15 @@ define opendkim::wildcard_key (
     require => File[$key_path],
   }
 
-  concat::fragment{"opendkim-signingtable-wildcard-key-${title}":
-    content => "* ${selector}._domainkey.${title}\n",
-    order   => '10_',
+  concat::fragment{"opendkim-signingtable-key-${title}":
+    content => template('opendkim/SigningTable-fragment.erb'),
+    order   => "${priority}_",
     target  => "${opendkim::config_dir}/SigningTable",
   }
 
-  concat::fragment{"opendkim-keytable-wildcard-key-${title}":
-    content => "${selector}._domainkey.${title} %:${selector}:${key_path}/${selector}.private\n",
-    order   => '10_',
+  concat::fragment{"opendkim-keytable-key-${title}":
+    content => "${title} %:${selector}:${key_path}/${selector}.private\n",
+    order   => "${priority}_",
     target  => "${opendkim::config_dir}/KeyTable",
   }
 

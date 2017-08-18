@@ -26,8 +26,12 @@ See inline documentation in opendkim class.
 
 ## Example
 
-The following will configure OpenDKIM to listen on localhost:8891, sign mails received from 203.0.113.0/24
-with a automatically generated wildcard key.
+The following will configure OpenDKIM to listen on localhost:8891, and to sign
+mails received from 203.0.113.0/24.
+
+Mails from the sender domains example.net / example.org will be signed using
+the example key, mails from other sender domains will be signed using the
+default key.
 
 ```yaml
 classes:
@@ -36,14 +40,23 @@ classes:
 opendkim::trusted_hosts:
  - '203.0.113.0/24'
 
-opendkim::wildcard_keys:
- '%{::fqdn}':
+opendkim::keys:
+ 'example':
+   domains: 
+     - 'example.net'
+     - 'example.org'
+   priority: 20
+   selector: 'special'
+ 'default':
+   priority: 50
    selector: 'default'
 ```
 
-The generated key to be put into DNS can be found in `/etc/opendkim/keys/$(hostname -f)/default.txt`.
+The generated key to be put into DNS can be found in
+`/etc/opendkim/keys/keyname/selector.txt`.
 
-In order to enable the milter in postfix set the following parameters in main.cf:
+In order to enable the milter in postfix set the following parameters in
+postfix' main.cf:
 
 ```ini
 smtpd_milters = inet:127.0.0.1:8891
@@ -51,8 +64,3 @@ non_smtpd_milters = inet:127.0.0.1:8891
 milter_default_action = accept
 milter_protocol = 2
 ```
-
-## Known Limitations
-
-The module currently supports only wildcard keys, i.e. a single key to sign
-all mails passed to the milter.

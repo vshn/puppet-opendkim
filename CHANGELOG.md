@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add
 - Add support for multiple signatures.
 
+### Changed
+- Replace wildcard_key type by a generic key type. See the updated README for
+  an usage example.
+
 ## v0.1.0
 ### Add
 - Initial release
