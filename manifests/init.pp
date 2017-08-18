@@ -13,6 +13,11 @@
 #
 # == Parameters
 #
+# [*multiple_signatures*]
+# Boolean. If set to true, message will be signed with every matched key.
+# The default behaviour will sign the message with the key that matches first.
+# Default: false
+#
 # [*port*]
 # Integer. Port the milter listens on. The socket is unconditionally opened
 # on 127.0.0.1 (ipv4 only).
@@ -34,6 +39,7 @@
 # * puppetlabs/stdlib
 #
 class opendkim (
+  $multiple_signatures = false,
   $port = 8891,
   $trusted_hosts = [
     '127.0.0.0/8',
@@ -42,6 +48,7 @@ class opendkim (
   $wildcard_keys = {},
 ){
 
+  validate_bool($multiple_signatures)
   validate_integer($port, 65535, 1024)
   validate_array($trusted_hosts)
   validate_hash($wildcard_keys)

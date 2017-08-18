@@ -13,6 +13,7 @@
 #
 class opendkim::config {
 
+  $multiple_signatures = $opendkim::multiple_signatures
   $port = $opendkim::port
   $trusted_hosts = $opendkim::trusted_hosts
 
