@@ -4,7 +4,7 @@ This puppet module provides support to install and configure the
 OpenDKIM milter.
 
 DomainKeys Identified Mail (DKIM) lets an organization take responsibility
-for a message that is in transit.  The organization is a handler of the
+for a message that is in transit. The organization is a handler of the
 message, either as its originator or as an intermediary. Their reputation
 is the basis for evaluating whether to trust the message for further
 handling, such as delivery. Technically DKIM provides a method for
