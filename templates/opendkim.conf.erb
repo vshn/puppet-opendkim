@@ -6,6 +6,7 @@ InternalHosts refile:/etc/opendkim/TrustedHosts
 KeyTable refile:/etc/opendkim/KeyTable
 LogWhy Yes
 Mode s
+MultipleSignatures <% if @multiple_signatures -%>Yes<% else -%>No<% end %>
 OversignHeaders From
 SignatureAlgorithm rsa-sha256
 SigningTable refile:/etc/opendkim/SigningTable
