@@ -41,10 +41,13 @@ class opendkim::config {
   }
 
   file {"${opendkim::config_dir}/keys":
-    ensure => directory,
-    owner  => $opendkim::user,
-    group  => $opendkim::group,
-    mode   => '0750',
+    ensure  => directory,
+    owner   => $opendkim::user,
+    group   => $opendkim::group,
+    mode    => '0750',
+    force   => $opendkim::purge_unmanaged_keys,
+    purge   => $opendkim::purge_unmanaged_keys,
+    recurse => $opendkim::purge_unmanaged_keys,
   }
 
   file {"${opendkim::config_dir}/TrustedHosts":

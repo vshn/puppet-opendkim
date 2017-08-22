@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Add
 - Add support for multiple signatures.
+- Unmanaged keys will be purged from the key directory. This behaviour can
+  be controlled using the new purge_unmanaged_keys parameter.
+
 
 ### Changed
 - Replace wildcard_key type by a generic key type. See the updated README for

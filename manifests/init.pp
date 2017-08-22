@@ -27,6 +27,10 @@
 # on 127.0.0.1 (ipv4 only).
 # Default: 8891
 #
+# [*purge_unmanaged_keys*]
+# Boolean. If set to true, key files not managed by puppet will be removed.
+# Default: true
+#
 # [*trusted_hosts*]
 # Array. List of client IP ranges, opendkim will sign mails from. If the
 # originating client is not listed here, opendkim will not sign mails.
@@ -41,6 +45,7 @@ class opendkim (
   $keys = {},
   $multiple_signatures = false,
   $port = 8891,
+  $purge_unmanaged_keys = true,
   $trusted_hosts = [
     '127.0.0.0/8',
     '::1',
@@ -50,6 +55,7 @@ class opendkim (
   validate_hash($keys)
   validate_bool($multiple_signatures)
   validate_integer($port, 65535, 1024)
+  validate_bool($purge_unmanaged_keys)
   validate_array($trusted_hosts)
 
   case downcase($::osfamily) {
