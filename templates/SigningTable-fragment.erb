@@ -1,0 +1,7 @@
+<% if @domains.any? -%>
+<%   @domains.sort.each do |domain| -%>
+*@<%= domain %> <%= @title %>
+<%   end -%>
+<% else -%>
+* <%= @title %>
+<% end -%>

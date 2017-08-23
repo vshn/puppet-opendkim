@@ -13,6 +13,10 @@
 #
 # == Parameters
 #
+# [*keys*]
+# Hash. Keys to be generated. See opendkim::key type for reference.
+# Default: {}
+#
 # [*multiple_signatures*]
 # Boolean. If set to true, message will be signed with every matched key.
 # The default behaviour will sign the message with the key that matches first.
@@ -23,15 +27,14 @@
 # on 127.0.0.1 (ipv4 only).
 # Default: 8891
 #
+# [*purge_unmanaged_keys*]
+# Boolean. If set to true, key files not managed by puppet will be removed.
+# Default: true
+#
 # [*trusted_hosts*]
 # Array. List of client IP ranges, opendkim will sign mails from. If the
 # originating client is not listed here, opendkim will not sign mails.
 # Default: ['127.0.0.0/8', '::1']
-#
-# [*wildcard_keys*]
-# Hash. Wildcard keys to be generated. See opendkim::wildcard_type for
-# reference.
-# Default: {}
 #
 # == Requirements
 #
@@ -39,19 +42,21 @@
 # * puppetlabs/stdlib
 #
 class opendkim (
+  $keys = {},
   $multiple_signatures = false,
   $port = 8891,
+  $purge_unmanaged_keys = true,
   $trusted_hosts = [
     '127.0.0.0/8',
     '::1',
   ],
-  $wildcard_keys = {},
 ){
 
+  validate_hash($keys)
   validate_bool($multiple_signatures)
   validate_integer($port, 65535, 1024)
+  validate_bool($purge_unmanaged_keys)
   validate_array($trusted_hosts)
-  validate_hash($wildcard_keys)
 
   case downcase($::osfamily) {
     'debian': {
@@ -87,8 +92,8 @@ class opendkim (
   class {'opendkim::service':
   }
 
-  if !empty($wildcard_keys) {
-    create_resources(::opendkim::wildcard_key, $wildcard_keys)
+  if !empty($keys) {
+    create_resources(::opendkim::key, $keys)
   }
 
 }
