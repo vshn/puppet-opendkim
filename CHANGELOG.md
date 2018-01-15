@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v1.1.0]
+### Add
+- Add proper LICENSE
+- Initial release on github.com
+
 ## [v1.0.0]
 ### Add
 - Add support for multiple signatures.
@@ -20,5 +25,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add
 - Initial release
 
-[Unreleased]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v1.0.0...master
+[Unreleased]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v1.1.0...master
+[v1.1.0]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v1.0.0...v1.1.0
 [v1.0.0]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v0.1.0...v1.0.0
