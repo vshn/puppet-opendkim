@@ -42,21 +42,15 @@
 # * puppetlabs/stdlib
 #
 class opendkim (
-  $keys = {},
-  $multiple_signatures = false,
-  $port = 8891,
-  $purge_unmanaged_keys = true,
-  $trusted_hosts = [
+  Hash $keys = {},
+  Boolean $multiple_signatures = false,
+  Integer[1024, 65535] $port = 8891,
+  Boolean $purge_unmanaged_keys = true,
+  Array $trusted_hosts = [
     '127.0.0.0/8',
     '::1',
   ],
 ){
-
-  validate_hash($keys)
-  validate_bool($multiple_signatures)
-  validate_integer($port, 65535, 1024)
-  validate_bool($purge_unmanaged_keys)
-  validate_array($trusted_hosts)
 
   case downcase($::osfamily) {
     'debian': {
