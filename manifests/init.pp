@@ -17,6 +17,11 @@
 # Hash. Keys to be generated. See opendkim::key type for reference.
 # Default: {}
 #
+# [*multi_instance_ports*]
+# Array of Integers. Define to generate several instances of OpenDKIM
+# that will be used in a round-robin fashion via iptables.
+# Default: []
+#
 # [*multiple_signatures*]
 # Boolean. If set to true, message will be signed with every matched key.
 # The default behaviour will sign the message with the key that matches first.
@@ -43,6 +48,7 @@
 #
 class opendkim (
   Hash $keys = {},
+  Array[Integer] $multi_instance_ports = [],
   Boolean $multiple_signatures = false,
   Integer[1024, 65535] $port = 8891,
   Boolean $purge_unmanaged_keys = true,
