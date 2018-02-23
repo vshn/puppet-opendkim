@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v1.2.0]
+### Add
+- Add possiblity for several instances
+
 ## [v1.1.0]
 ### Add
 - Add proper LICENSE
@@ -15,16 +19,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Add
 - Add support for multiple signatures.
 - Unmanaged keys will be purged from the key directory. This behaviour can
-  be controlled using the new purge_unmanaged_keys parameter.
+  be controlled using the new purge\_unmanaged\_keys parameter.
 
 ### Changed
-- Replace wildcard_key type by a generic key type. See the updated README for
+- Replace wildcard\_key type by a generic key type. See the updated README for
   an usage example.
 
 ## v0.1.0
 ### Add
 - Initial release
 
-[Unreleased]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v1.1.0...master
-[v1.1.0]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v1.0.0...v1.1.0
-[v1.0.0]: https://git.vshn.net/vshn-puppet/profile_opendkim/compare/v0.1.0...v1.0.0
+[Unreleased]: https://github.com/vshn/puppet-opendkim/compare/v1.2.0...master
+[v1.2.0]: https://github.com/vshn/puppet-opendkim/compare/v1.1.0...v1.2.0
+[v1.1.0]: https://github.com/vshn/puppet-opendkim/compare/v1.0.0...v1.1.0
+[v1.0.0]: https://git.vshn.net/vshn-puppet/puppet-opendkim/compare/v0.1.0...v1.0.0
