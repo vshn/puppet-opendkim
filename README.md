@@ -55,6 +55,15 @@ opendkim::keys:
 The generated key to be put into DNS can be found in
 `/etc/opendkim/keys/keyname/selector.txt`.
 
+You can create multiple-instances of the Daemon that will run on separate
+ports by using an array of integers for `opendkim::multi_instance_ports`.
+This will automatically create iptables-rules for round-robin accessing
+them on the default port.
+
+Note that switching back to a single instance (or, indeed, to different
+ports) will not remove these services. To do so manually disable the services
+(called opendkim@_port_) and remove the files at `/etc/default/opendkim-$port`.
+
 In order to enable the milter in postfix set the following parameters in
 postfix' main.cf:
 
