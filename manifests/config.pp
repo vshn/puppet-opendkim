@@ -70,13 +70,13 @@ class opendkim::config {
         chain       => 'OUTPUT',
         outiface    => 'lo',
         proto       => 'tcp',
-        dport       => $instance_port,
+        dport       => $port,
         ctstate     => 'NEW',
         stat_mode   => 'nth',
         stat_every  => "$_nofports",  # Needs to be a string. Don't ask me why...
         stat_packet => $index,
         jump        => 'DNAT',
-        todest      => "127.0.0.1:${port}",
+        todest      => "127.0.0.1:${instance_port}",
       }
     }
   } else {
