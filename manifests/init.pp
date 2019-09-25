@@ -61,7 +61,7 @@ class opendkim (
   case downcase($::osfamily) {
     'debian': {
       case downcase($::lsbdistcodename) {
-        'xenial': {
+        'xenial', 'bionic': {
           $config_dir = '/etc/opendkim'
           $config_file = '/etc/opendkim.conf'
           $defaults_file = '/etc/default/opendkim'
