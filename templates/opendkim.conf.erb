@@ -12,3 +12,8 @@ SignatureAlgorithm rsa-sha256
 SigningTable refile:/etc/opendkim/SigningTable
 Syslog Yes
 SyslogSuccess Yes
+<% unless @multi_instance -%>
+Socket inet:<%= @port %>@localhost
+PidFile /var/run/opendkim/opendkim.pid
+UserID opendkim 
+<% end -%>
