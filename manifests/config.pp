@@ -18,16 +18,9 @@ class opendkim::config {
   $port = $opendkim::port
   $trusted_hosts = $opendkim::trusted_hosts
 
-  file {$opendkim::config_file:
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('opendkim/opendkim.conf.erb'),
-  }
-
   $_nofports = count($multi_instance_ports)
   if $_nofports > 0 {
+    $multi_instance = true
     # Create Multi-instance systemd resource
     include systemd
     systemd::resources::unit { 'opendkim':
@@ -80,14 +73,25 @@ class opendkim::config {
       }
     }
   } else {
+    $multi_instance = false
     # Not a multi-instance; just use normal port
-    file { "${opendkim::defaults_file}":
-      ensure  => file,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => "# managed by puppet\nSOCKET=\"inet:${port}@localhost\"\n",
+    if $opendkim::defaults_file {
+      file { "$opendkim::defaults_file":
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => "# managed by puppet\nSOCKET=\"inet:${port}@localhost\"\n",
+      }
     }
+  }
+
+  file {$opendkim::config_file:
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('opendkim/opendkim.conf.erb'),
   }
 
   file {$opendkim::config_dir:

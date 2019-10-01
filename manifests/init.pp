@@ -60,20 +60,23 @@ class opendkim (
 
   case downcase($::osfamily) {
     'debian': {
+      $config_dir = '/etc/opendkim'
+      $config_file = '/etc/opendkim.conf'
+      $group = 'opendkim'
+      $packages = [
+        'opendkim',
+        'opendkim-tools',
+      ]
+      $service_enable = true
+      $service_ensure = 'running'
+      $service_name = 'opendkim'
+      $user = 'opendkim'
       case downcase($::lsbdistcodename) {
+        'bionic': {
+          $defaults_file = undef
+        }
         'xenial': {
-          $config_dir = '/etc/opendkim'
-          $config_file = '/etc/opendkim.conf'
           $defaults_file = '/etc/default/opendkim'
-          $group = 'opendkim'
-          $packages = [
-            'opendkim',
-            'opendkim-tools',
-          ]
-          $service_enable = true
-          $service_ensure = 'running'
-          $service_name = 'opendkim'
-          $user = 'opendkim'
         }
         default: {
           fail("unsupported distribution ${::lsbdistcodename}")
