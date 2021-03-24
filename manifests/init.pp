@@ -72,7 +72,7 @@ class opendkim (
       $service_name = 'opendkim'
       $user = 'opendkim'
       case downcase($::lsbdistcodename) {
-        'bionic': {
+        'bionic', 'focal': {
           $defaults_file = undef
         }
         'xenial': {
@@ -89,10 +89,10 @@ class opendkim (
   }
 
   class {'opendkim::install':
-  } ->
-  class {'opendkim::config':
-  } ~>
-  class {'opendkim::service':
+  }
+  -> class {'opendkim::config':
+  }
+  ~> class {'opendkim::service':
   }
 
   if !empty($keys) {
