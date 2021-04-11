@@ -58,7 +58,7 @@ define opendkim::key (
 
   exec {"opendkim-genkey-${title}":
     command => shell_join([
-      '/usr/bin/opendkim-genkey',
+      "${::opendkim::bin_path}/opendkim-genkey",
       '-D', "${key_path}/",
       '-d', $title,
       '-s', $selector,

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v1.4.1]
+### Add
+- Suport for RedHat Systems
+
 ## [v1.4.0]
 ### Add
 - Suport for Ubuntu 20.04

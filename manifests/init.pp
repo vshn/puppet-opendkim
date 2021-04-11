@@ -60,6 +60,7 @@ class opendkim (
 
   case downcase($::osfamily) {
     'debian': {
+      $bin_path = '/usr/bin'
       $config_dir = '/etc/opendkim'
       $config_file = '/etc/opendkim.conf'
       $group = 'opendkim'
@@ -82,6 +83,20 @@ class opendkim (
           fail("unsupported distribution ${::lsbdistcodename}")
         }
       }
+    }
+    'redhat': {
+      $bin_path = '/usr/sbin'
+      $config_dir = '/etc/opendkim'
+      $config_file = '/etc/opendkim.conf'
+      $group = 'opendkim'
+      $packages = [
+        'opendkim',
+      ]
+      $service_enable = true
+      $service_ensure = 'running'
+      $service_name = 'opendkim'
+      $user = 'opendkim'
+      $defaults_file = undef
     }
     default: {
       fail("unsupported platfrom ${::osfamily}")
