@@ -72,7 +72,7 @@ class opendkim (
       $service_name = 'opendkim'
       $user = 'opendkim'
       case downcase($::lsbdistcodename) {
-        'bionic', 'focal': {
+        'bionic', 'focal', 'jammy': {
           $defaults_file = undef
         }
         'xenial': {
