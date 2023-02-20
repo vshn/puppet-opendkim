@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [v1.5.0]
+## [v2.0.0]
 ### Add
 - Support for Ubuntu 22.04
 ###
