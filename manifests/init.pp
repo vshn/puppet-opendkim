@@ -75,9 +75,6 @@ class opendkim (
         'bionic', 'focal', 'jammy': {
           $defaults_file = undef
         }
-        'xenial': {
-          $defaults_file = '/etc/default/opendkim'
-        }
         default: {
           fail("unsupported distribution ${::lsbdistcodename}")
         }
