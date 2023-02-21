@@ -71,15 +71,11 @@ class opendkim (
       $service_ensure = 'running'
       $service_name = 'opendkim'
       $user = 'opendkim'
-      case downcase($::lsbdistcodename) {
-        'bionic', 'focal', 'jammy': {
-          $defaults_file = undef
-        }
-        default: {
+      $_supported_releases = ['bionic', 'focal', 'jammy']
+      unless downcase($::lsbdistcodename) in $_supported_releases {
           fail("unsupported distribution ${::lsbdistcodename}")
         }
       }
-    }
     default: {
       fail("unsupported platfrom ${::osfamily}")
     }

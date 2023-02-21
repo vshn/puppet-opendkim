@@ -30,7 +30,6 @@ class opendkim::config {
       after                 => 'network.target nss-lookup.target',
       description           => 'DomainKeys Indentified Mail (DKIM) Milter',
       documentation         => 'man:opendkim(8) man:opendkim.conf(5) man:opendkim-genkey(8) man:opendkim-genzone(8) man:opendkim-testadsp(8) man:opendkim-testkey http://www.opendkim.org/docs.html',
-      environment_file      => "-${opendkim::defaults_file}-%I",
       permissions_startonly => true,
       user                  => 'opendkim',
       group                 => 'opendkim',
@@ -49,14 +48,6 @@ class opendkim::config {
       if $instance_port == $port {
         fail("Instance port may not be equal to default port ($instance_port)")
       }
-      # Create defaults file
-      file { "${opendkim::defaults_file}-${instance_port}":
-        ensure  => file,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => "# managed by puppet\nSOCKET=\"inet:${instance_port}@localhost\"\n",
-      }
       # Add firewall rules for round-robin
       firewall { "100 reroute OpenDKIM instance $index traffic":
         table       => 'nat',
@@ -74,16 +65,6 @@ class opendkim::config {
     }
   } else {
     $multi_instance = false
-    # Not a multi-instance; just use normal port
-    if $opendkim::defaults_file {
-      file { "$opendkim::defaults_file":
-        ensure  => file,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => "# managed by puppet\nSOCKET=\"inet:${port}@localhost\"\n",
-      }
-    }
   }
 
   file {$opendkim::config_file:
