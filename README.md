@@ -18,9 +18,9 @@ cryptographic authentication.
 
 ## OS Support
 
- * Ubuntu 16.04 (Xenial Xerus)
  * Ubuntu 18.04 (Bionic Beaver)
  * Ubuntu 20.04 (Focal Fossa)
+ * Ubuntu 22.04 (Jammy Jellyfish)
 
 ## Parameters
 
