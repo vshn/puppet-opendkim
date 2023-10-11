@@ -56,9 +56,15 @@ define opendkim::key (
     mode   => '0750',
   }
 
+  if ($facts['os']['distro']['codename'] == 'jammy') {
+    $_tools_path = '/usr/sbin'
+  } else {
+    $_tools_path = '/usr/bin'
+  }
+
   exec {"opendkim-genkey-${title}":
     command => shell_join([
-      '/usr/bin/opendkim-genkey',
+      "$_tools_path/opendkim-genkey",
       '-D', "${key_path}/",
       '-d', $title,
       '-s', $selector,
