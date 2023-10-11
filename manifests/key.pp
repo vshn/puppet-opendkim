@@ -56,15 +56,9 @@ define opendkim::key (
     mode   => '0750',
   }
 
-  if ($facts['os']['distro']['codename'] == 'jammy') {
-    $_tools_path = '/usr/sbin'
-  } else {
-    $_tools_path = '/usr/bin'
-  }
-
   exec {"opendkim-genkey-${title}":
     command => shell_join([
-      "$_tools_path/opendkim-genkey",
+      'opendkim-genkey',
       '-D', "${key_path}/",
       '-d', $title,
       '-s', $selector,
@@ -76,6 +70,7 @@ define opendkim::key (
     ]),
     user    => $opendkim::user,
     require => File[$key_path],
+    path    => ['/usr/bin', '/usr/sbin'],
   }
 
   concat::fragment{"opendkim-signingtable-key-${title}":
