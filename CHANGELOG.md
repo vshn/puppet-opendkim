@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [v2.0.1]
+### Change
+- Bugfix: Use correct path for opendkim-genkey in Ubuntu 22.04
+
 ## [v2.0.0]
 ### Add
 - Support for Ubuntu 22.04

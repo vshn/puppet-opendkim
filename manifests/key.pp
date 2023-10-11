@@ -58,7 +58,7 @@ define opendkim::key (
 
   exec {"opendkim-genkey-${title}":
     command => shell_join([
-      '/usr/bin/opendkim-genkey',
+      'opendkim-genkey',
       '-D', "${key_path}/",
       '-d', $title,
       '-s', $selector,
@@ -70,6 +70,7 @@ define opendkim::key (
     ]),
     user    => $opendkim::user,
     require => File[$key_path],
+    path    => ['/usr/bin', '/usr/sbin'],
   }
 
   concat::fragment{"opendkim-signingtable-key-${title}":
