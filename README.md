@@ -21,6 +21,7 @@ cryptographic authentication.
  * Ubuntu 18.04 (Bionic Beaver)
  * Ubuntu 20.04 (Focal Fossa)
  * Ubuntu 22.04 (Jammy Jellyfish)
+ * Ubuntu 24.04 (Noble Numbat)
 
 ## Parameters
 
