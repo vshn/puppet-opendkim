@@ -71,7 +71,7 @@ class opendkim (
       $service_ensure = 'running'
       $service_name = 'opendkim'
       $user = 'opendkim'
-      $_supported_releases = ['bionic', 'focal', 'jammy']
+      $_supported_releases = ['bionic', 'focal', 'jammy', 'noble']
       unless downcase($::lsbdistcodename) in $_supported_releases {
           fail("unsupported distribution ${::lsbdistcodename}")
         }
