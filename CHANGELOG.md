@@ -4,7 +4,10 @@ Please document all notable changes to this project in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## v2.1.1
+### Fixed
+- Removed `validate_*` calls
+- Removed meaningless `::` prefix
 
 ## v2.1.0
 ### Added

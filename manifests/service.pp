@@ -17,15 +17,15 @@ class opendkim::service {
 
   if count($multi_instance_ports) > 0 {
     $multi_instance_ports.each |Integer $index, Integer $instance_port| {
-      service { "${::opendkim::service_name}@$instance_port":
-        ensure => $::opendkim::service_ensure,
-        enable => $::opendkim::service_enable,
+      service { "${opendkim::service_name}@$instance_port":
+        ensure => $opendkim::service_ensure,
+        enable => $opendkim::service_enable,
       }
     }
   } else {
-    service {$::opendkim::service_name:
-      ensure => $::opendkim::service_ensure,
-      enable => $::opendkim::service_enable,
+    service {$opendkim::service_name:
+      ensure => $opendkim::service_ensure,
+      enable => $opendkim::service_enable,
     }
   }
 
