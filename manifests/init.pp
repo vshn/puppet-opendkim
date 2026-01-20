@@ -47,18 +47,15 @@
 # * puppetlabs/stdlib
 #
 class opendkim (
-  Hash $keys = {},
-  Array[Integer] $multi_instance_ports = [],
-  Boolean $multiple_signatures = false,
+  Hash                 $keys = {},
+  Array[Integer]       $multi_instance_ports = [],
+  Boolean              $multiple_signatures = false,
   Integer[1024, 65535] $port = 8891,
-  Boolean $purge_unmanaged_keys = true,
-  Array $trusted_hosts = [
-    '127.0.0.0/8',
-    '::1',
-  ],
+  Boolean              $purge_unmanaged_keys = true,
+  Array                $trusted_hosts = [ '127.0.0.0/8', '::1', ],
 ){
 
-  case downcase($::osfamily) {
+  case downcase($facts['os']['family']) {
     'debian': {
       $config_dir = '/etc/opendkim'
       $config_file = '/etc/opendkim.conf'
@@ -72,12 +69,12 @@ class opendkim (
       $service_name = 'opendkim'
       $user = 'opendkim'
       $_supported_releases = ['bionic', 'focal', 'jammy', 'noble']
-      unless downcase($::lsbdistcodename) in $_supported_releases {
-          fail("unsupported distribution ${::lsbdistcodename}")
+      unless downcase($facts['os']['distro']['codename']) in $_supported_releases {
+          fail("unsupported distribution ${facts['os']['distro']['codename']}")
         }
       }
     default: {
-      fail("unsupported platfrom ${::osfamily}")
+      fail("unsupported platfrom ${facts['os']['family']}")
     }
   }
 

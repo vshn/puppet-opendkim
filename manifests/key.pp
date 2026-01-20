@@ -35,18 +35,13 @@
 # Default: default
 #
 define opendkim::key (
-  $bits = '2048',
-  $domains = [],
-  $priority = 50,
-  $selector = 'default',
+  Enum['1024','2048'] $bits = '2048',
+  Array               $domains = [],
+  Integer             $priority = 50,
+  String              $selector = 'default',
 ){
-
-  validate_integer($bits)
-  validate_re($bits, '^(1024|2048)$')
-  validate_array($domains)
-  validate_string($selector)
   $key_path = "${opendkim::config_dir}/keys/${title}"
-  validate_absolute_path($key_path)
+  assert_type(Stdlib::Absolutepath, $key_path)
 
   include opendkim
   file {$key_path:
