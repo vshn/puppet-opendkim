@@ -4,9 +4,14 @@ Please document all notable changes to this project in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## v2.1.2
+## v3.0.0
 ### Fixed
 - Linter fixes
+### Added
+- Support for resolute
+### Removed
+- Support for Ubuntu 18.04
+- Support for Ubuntu 20.04
 
 ## v2.1.1
 ### Fixed

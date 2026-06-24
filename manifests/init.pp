@@ -68,7 +68,7 @@ class opendkim (
       $service_ensure = 'running'
       $service_name = 'opendkim'
       $user = 'opendkim'
-      $_supported_releases = ['bionic', 'focal', 'jammy', 'noble']
+      $_supported_releases = ['jammy', 'noble', 'resolute']
       unless downcase($facts['os']['distro']['codename']) in $_supported_releases {
           fail("unsupported distribution ${facts['os']['distro']['codename']}")
         }
