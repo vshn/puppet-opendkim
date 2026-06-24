@@ -39,17 +39,17 @@ class opendkim::config {
     }
     # Stop the "main" service, we have individual ones
     # TODO: Replace the main service with one that handles all the individual ones
-    service { "${::opendkim::service_name}":
+    service { $::opendkim::service_name:
       ensure => 'stopped',
       enable => false,
     }
     $multi_instance_ports.each |Integer $index, Integer $instance_port| {
       # Sanity check
       if $instance_port == $port {
-        fail("Instance port may not be equal to default port ($instance_port)")
+        fail("Instance port may not be equal to default port (${instance_port})")
       }
       # Add firewall rules for round-robin
-      firewall { "100 reroute OpenDKIM instance $index traffic":
+      firewall { "100 reroute OpenDKIM instance ${index} traffic":
         table       => 'nat',
         chain       => 'OUTPUT',
         outiface    => 'lo',
@@ -57,7 +57,7 @@ class opendkim::config {
         dport       => $port,
         ctstate     => 'NEW',
         stat_mode   => 'nth',
-        stat_every  => "$_nofports",  # Needs to be a string. Don't ask me why...
+        stat_every  => $_nofports,  # Needs to be a string. Don't ask me why...
         stat_packet => $index,
         jump        => 'DNAT',
         todest      => "127.0.0.1:${instance_port}",
