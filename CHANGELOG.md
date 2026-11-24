@@ -4,6 +4,10 @@ Please document all notable changes to this project in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v3.1.0
+### Add
+- Add optional signing domain parameter
+
 ## v3.0.0
 ### Fixed
 - Linter fixes
