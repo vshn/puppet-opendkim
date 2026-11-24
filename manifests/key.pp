@@ -39,6 +39,7 @@ define opendkim::key (
   Array               $domains = [],
   Integer             $priority = 50,
   String              $selector = 'default',
+  Optional[String]    $signing_domain = undef,
 ){
   $key_path = "${opendkim::config_dir}/keys/${title}"
   assert_type(Stdlib::Absolutepath, $key_path)
@@ -74,8 +75,9 @@ define opendkim::key (
     target  => "${opendkim::config_dir}/SigningTable",
   }
 
+  $_d = pick($signing_domain, '%')
   concat::fragment{"opendkim-keytable-key-${title}":
-    content => "${title} %:${selector}:${key_path}/${selector}.private\n",
+    content => "${title} ${_d}:${selector}:${key_path}/${selector}.private\n",
     order   => "${priority}_",
     target  => "${opendkim::config_dir}/KeyTable",
   }
